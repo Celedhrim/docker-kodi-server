@@ -52,7 +52,7 @@ Because 8080 is default for http proxy , the docker image expose 8089
   | `jarvis`             | jarvis      | 16.1         | 16.04 (Xenial Xerus) |
   | `krypton`            | krypton     | 17.6         | Archlinux            |
   | `leia`               | leia        | 18.9         | 18.04 (Bionic Beaver)|
-  | `matrix`             | matrix      | 19.0         | 20.04 (Focal Fossa)  |
+  | `matrix`             | matrix      | 19.0         | 18.04 (Bionic Beaver)|
   | `experimental`       | krypton     | 17.0rc2      | 18.04 (Bionic Beaver)|
 
 3. Run the image ( change the **/path/to/kodi-server-profile**)

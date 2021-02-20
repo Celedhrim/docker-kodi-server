@@ -9,7 +9,7 @@
 # Greatly inspire by the work of wernerb,
 # See https://github.com/wernerb/docker-xbmc-server
 
-FROM ubuntu:20.04
+FROM ubuntu:18.04
 maintainer celedhrim "celed+git@ielf.org"
 
 # Set Terminal to non interactive
