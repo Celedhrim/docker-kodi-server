@@ -1,4 +1,4 @@
-build_release:
+build_release_gitlab:
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:debug
@@ -14,7 +14,23 @@ build_release:
   rules:
     - if: '$CI_COMMIT_BRANCH != "master"'
 
-build_latest:
+build_release_dockerhub:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"https://index.docker.io/v1/\":{\"auth\":\"$(printf "%s:%s" "${DOCKERHUB_USER}" "${DOCKERHUB_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - >-
+      /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "celedhrim/kodi-server:${CI_COMMIT_BRANCH}"
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "master"'
+
+build_latest_gitlab:
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:debug
@@ -27,5 +43,21 @@ build_latest:
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}:latest"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+build_latest_dockerhub:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"https://index.docker.io/v1/\":{\"auth\":\"$(printf "%s:%s" "${DOCKERHUB_USER}" "${DOCKERHUB_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - >-
+      /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "celedhrim/kodi-server:latest"
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
