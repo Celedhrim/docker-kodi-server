@@ -1,3 +1,8 @@
+# Archive notice
+
+This project is archived because kodi team [no longer provides PPA](https://kodi.tv/article/ubuntu-team-kodi-ppa-officially-retired/).
+I recommend switching to [matthuisman/docker-kodi-headless](https://github.com/matthuisman/docker-kodi-headless).
+
 # docker-kodi-server
 
 Run Kodi using docker as a server
